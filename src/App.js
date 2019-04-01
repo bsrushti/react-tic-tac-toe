@@ -24,20 +24,44 @@ class Game extends Component {
     this.state = { content: "#" };
     this.player1 = [];
     this.player2 = [];
+    this.winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
   }
 
   tic(e) {
+    if (this.count >= 9) this.count = 0;
     let id = e.target.id;
     if (this.count % 2 === 0) {
       document.getElementById(id).innerText = "O";
       this.player1.push(+id);
+      if (this.checkWinnigCondition(this.player1))
+        document.getElementById("message").innerText = "Player1 has won";
     } else {
       document.getElementById(id).innerText = "X";
       this.player2.push(+id);
+      if (this.checkWinnigCondition(this.player2))
+        document.getElementById("message").innerText = "Player2 has won";
     }
-    
     this.count++;
     return e.target;
+  }
+
+  isSubset(set1, set2) {
+    return set1.every(y => set2.includes(y));
+  }
+
+  checkWinnigCondition(player) {
+    return this.winningCombinations.some(combination =>
+      this.isSubset(combination, player)
+    );
   }
 
   renderCell(id, value) {
@@ -54,6 +78,7 @@ class Game extends Component {
   render() {
     return (
       <div>
+        <div id="message" className="message" />
         <ul id="gameBoard" style={{ width: 350 }}>
           {this.renderCell(0, this.state.content)}
           {this.renderCell(1, this.state.content)}
