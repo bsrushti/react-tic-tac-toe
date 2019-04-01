@@ -20,12 +20,23 @@ class Square extends Component {
 class Game extends Component {
   constructor(props) {
     super(props);
+    this.count = 0;
     this.state = { content: "#" };
+    this.player1 = [];
+    this.player2 = [];
   }
 
   tic(e) {
-    this.setState({ content: "*" });
-    console.log(e.target.txt);
+    let id = e.target.id;
+    if (this.count % 2 === 0) {
+      document.getElementById(id).innerText = "O";
+      this.player1.push(+id);
+    } else {
+      document.getElementById(id).innerText = "X";
+      this.player2.push(+id);
+    }
+    
+    this.count++;
     return e.target;
   }
 
