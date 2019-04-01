@@ -36,19 +36,26 @@ class Game extends Component {
     ];
   }
 
+  player1Move(id) {
+    document.getElementById(id).innerText = "O";
+    this.player1.push(+id);
+    if (this.checkWinnigCondition(this.player1))
+      document.getElementById("container").innerText = "Player1 has won";
+  }
+
+  player2Move(id) {
+    document.getElementById(id).innerText = "X";
+    this.player2.push(+id);
+    if (this.checkWinnigCondition(this.player2))
+      document.getElementById("container").innerText = "Player2 has won";
+  }
+
   tic(e) {
-    if (this.count >= 9) this.count = 0;
     let id = e.target.id;
     if (this.count % 2 === 0) {
-      document.getElementById(id).innerText = "O";
-      this.player1.push(+id);
-      if (this.checkWinnigCondition(this.player1))
-        document.getElementById("message").innerText = "Player1 has won";
+      this.player1Move(id);
     } else {
-      document.getElementById(id).innerText = "X";
-      this.player2.push(+id);
-      if (this.checkWinnigCondition(this.player2))
-        document.getElementById("message").innerText = "Player2 has won";
+      this.player2Move(id);
     }
     this.count++;
     return e.target;
@@ -77,8 +84,7 @@ class Game extends Component {
 
   render() {
     return (
-      <div>
-        <div id="message" className="message" />
+      <div className="container" id="container">
         <ul id="gameBoard" style={{ width: 350 }}>
           {this.renderCell(0, this.state.content)}
           {this.renderCell(1, this.state.content)}

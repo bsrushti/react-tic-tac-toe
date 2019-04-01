@@ -1,7 +1,3 @@
-.App {
-  text-align: center;
-}
-
 #gameBoard li {
   float: left;
   margin: 10px;
@@ -20,3 +16,8 @@
   background: #000;
 }
 
+.container {
+  text-decoration: underline;
+  text-align: center;
+  font-size: 30px;
+}
