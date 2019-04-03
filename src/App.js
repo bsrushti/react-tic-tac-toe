@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import "./App.css";
 
 class Square extends Component {
@@ -21,7 +20,7 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.count = 0;
-    this.state = { content: "#" };
+    this.state = { content: " " };
     this.player1 = [];
     this.player2 = [];
     this.winningCombinations = [
